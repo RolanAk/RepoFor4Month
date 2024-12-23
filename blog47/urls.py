@@ -8,10 +8,10 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', main_view),
+    path('', main_view),
     path('html/', html_view),
     path('posts/', posts_list_view),
-    path('detail/', posts_detail_view),
+    path('posts/<int:id>/', posts_detail_view),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

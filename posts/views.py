@@ -13,7 +13,6 @@ def posts_list_view(request):
     return render(request, "posts/posts_list.html", context={"posts": posts})
 
 
-def posts_detail_view(request, title, description):
-    posts = Post.objects.all(title = title,
-                            description = description)
-    return render(request, "posts/posts_list.html", context={"posts": posts})
+def posts_detail_view(request, id):
+    post = Post.objects.get(id=id)
+    return render(request, "posts/posts_detail.html", context={"post": post})
