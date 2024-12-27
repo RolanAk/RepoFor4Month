@@ -1,4 +1,5 @@
 from django import forms
+from posts.models import Category
 
 class PostForm(forms.Form):
     title = forms.CharField()
@@ -22,4 +23,29 @@ class PostForm(forms.Form):
         return title
 
 
-        
+
+class SearchForm(forms.Form):
+    search = forms.CharField(
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(attrs={"placeholder": "search", 'class': 'form-control'})
+    )
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        required=False,
+        widget=forms.Select(attrs={"class": "form-control"}),
+    )
+
+
+    orderings = {
+        ("created_at", "created_at"),
+        ("updated_at", "updated_at"),
+        ("rate", "rate"),
+        ("-created_at", "-created_at"),
+        ("-updated_at", "-updated_at"),
+        ("-rate", "-rate"),
+        }
+    
+    ordering = forms.ChoiceField(
+        choices=orderings, required=False, widget=forms.Select(attrs={"class": "form-control"})
+    )
